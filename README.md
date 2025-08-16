@@ -14,7 +14,7 @@ A minimalist terminal‐based focus timer and stopwatch with daily logging, buil
 
 ![Timer Page](assets/timer.png)
 
-![Logs Page](assets/logs.gif)
+![History Page](assets/history.gif)
 
 ## Prerequisites
 - Rust (>= 1.89)
@@ -66,7 +66,7 @@ fokus
 ### Configuration
 Configure fokus via the config file located at `~/.config/fokus/config.toml`
 
-- `default-timer`: Default timer duration (in minutes) *default: 25*
+- `default_timer_duration`: Default timer duration (in minutes) | *default: 25*
 
 ## LICENSE
 This project is licensed under the terms of the GPL-3.0 license. See the [COPYING](./COPYING) file for details.
