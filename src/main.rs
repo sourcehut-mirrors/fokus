@@ -172,9 +172,61 @@ fn _save_history(map: &HashMap<String, u64>) -> io::Result<()> {
     }
 }
 
+fn lock_path() -> Option<PathBuf> {
+    dirs_next::config_dir().map(|d| d.join("fokus").join("fokus.lock"))
+}
+
+fn acquire_lock() -> io::Result<(fs::File, PathBuf)> {
+    if let Some(path) = lock_path() {
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+
+        if path.exists() {
+            if let Ok(s) = fs::read_to_string(&path) {
+                if let Ok(pid) = s.trim().parse::<u32>() {
+                    let proc_path = PathBuf::from("/proc").join(pid.to_string());
+                    if proc_path.exists() {
+                        return Err(io::Error::new(
+                                io::ErrorKind::AlreadyExists,
+                                "Another instance is already running. There can only be one fokus instance at a time. Please kill the other instance before starting a new one.",
+                        ));
+                    } else {
+                        let _ = fs::remove_file(&path);
+                    }
+                } else {
+                    let _ = fs::remove_file(&path);
+                }
+            } else {
+                let _ = fs::remove_file(&path);
+            }
+        }
+
+        let mut f = fs::OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(&path)?;
+        let pid = std::process::id();
+        use std::io::Write;
+        let _ = write!(f, "{}", pid);
+        Ok((f, path))
+    } else {
+        Err(io::Error::new(io::ErrorKind::NotFound, "Config directory could not be found."))
+    }
+}
+
+
 fn main() -> io::Result<()> {
 
     let config = Config::load_or_create()?;
+
+    let (lock_file, lock_path_buf) = match acquire_lock() {
+        Ok(t) => t,
+        Err(e) => {
+            eprintln!("There is something wrong: {}", e);
+            std::process::exit(1);
+        }
+    };
 
     let mut timer_total = Duration::from_secs(config.default_timer_duration * 60);
 
@@ -482,6 +534,8 @@ fn main() -> io::Result<()> {
     disable_raw_mode()?;
     execute!(terminal.backend_mut(), LeaveAlternateScreen)?; 
     terminal.show_cursor()?;
+    let _ = fs::remove_file(lock_path_buf);
+    drop(lock_file);
     Ok(())
 }
 
