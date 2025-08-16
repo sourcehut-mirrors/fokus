@@ -385,7 +385,7 @@ fn main() -> io::Result<()> {
                 f.render_widget(focused_minutes_text, middle_chunks[2]);
             }
 
-            let footer = Paragraph::new("[space] Start/Reset [q] Quit [h/<-]/[l/->] Change Page [j/↓]/[k/↑] Adjust/Scroll")
+            let footer = Paragraph::new("[space] Start/Reset [q] Quit [h]/[l] Change Page [j]/[k] Adjust/Scroll")
                 .alignment(Alignment::Center)
                 .style(Style::default().fg(Color::Gray));
             f.render_widget(footer, chunks[2]);
