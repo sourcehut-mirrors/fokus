@@ -339,7 +339,7 @@ fn main() -> io::Result<()> {
                     let visible = &parsed[history_offset..end];
 
                     table.push_str(&format!("{:<11} | {:>6}\n", "Date", "Minutes"));
-                    table.push_str(&"-".repeat(20));
+                    table.push_str(&"-".repeat(21));
                     table.push('\n');
 
                     for (_d, key) in visible {
