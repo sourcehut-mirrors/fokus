@@ -1,4 +1,4 @@
-//  A minimalist terminal‐based focus timer and stopwatch with daily logging, built in Rust.
+//  A minimalist terminal‐based focus timer and stopwatch with daily logging, built in Rust
 //  Copyright (C) 2025  Arda Yılmaz
 //
 //  This program is free software: you can redistribute it and/or modify
