@@ -64,9 +64,13 @@ fokus
 - `[j/↓]`/`[k/↑]` : Adjust timer minutes or scroll logs
 - `[q]` : Quit
 ### Configuration
-Configure fokus via the config file located at `~/.config/fokus/config.toml`
-
-- `default_timer_duration`: Default timer duration (in minutes) | *default: 25*
+Configure fokus via the config file located at `~/.config/fokus/config.toml`:
+# fokus Configuration File
+```toml
+# Default timer duration (in minutes)
+# Must be between 1 and 999
+default_timer_duration = 25
+```
 
 ## LICENSE
 This project is licensed under the terms of the GPL-3.0 license. See the [COPYING](./COPYING) file for details.
