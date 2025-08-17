@@ -1,5 +1,5 @@
 # fokus
-A minimalist terminal‐based focus timer and stopwatch with daily logging, built in Rust.
+A minimalist terminal‐based focus timer and stopwatch with daily logging, built in Rust
 
 ## Features
 - Stopwatch to track elapsed time while focusing.
