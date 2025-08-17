@@ -65,8 +65,9 @@ fokus
 - `[q]` : Quit
 ### Configuration
 Configure fokus via the config file located at `~/.config/fokus/config.toml`:
-# fokus Configuration File
 ```toml
+# fokus Configuration File
+
 # Default timer duration (in minutes)
 # Must be between 1 and 999
 default_timer_duration = 25
