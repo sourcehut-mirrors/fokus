@@ -26,7 +26,6 @@ use ratatui::{
     widgets::{Block, Borders, Paragraph},
     Terminal,
 };
-
 use std::{
     collections::HashMap,
     fs,
@@ -34,9 +33,7 @@ use std::{
     path::PathBuf,
     time::{Duration, Instant},
 };
-
 use chrono::{Local, NaiveDate};
-
 use serde::{Deserialize, Serialize};
 use serde_json;
 
