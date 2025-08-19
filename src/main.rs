@@ -212,7 +212,6 @@ fn acquire_lock() -> io::Result<(fs::File, PathBuf)> {
     }
 }
 
-
 fn main() -> io::Result<()> {
 
     let config = Config::load_or_create()?;
@@ -333,7 +332,6 @@ fn main() -> io::Result<()> {
                     stopwatch_display.clone()
                 }
                 1 => {
-
                     if timer_running {
                         let elapsed = timer_start.elapsed();
                         let remaining = if elapsed >= timer_total {
@@ -342,16 +340,18 @@ fn main() -> io::Result<()> {
                             timer_total - elapsed
                         };
                         timer_display = format_duration(remaining);
-                        if remaining == Duration::ZERO && !timer_logged{
-                            timer_running = false; 
-                            timer_done = true; 
-
-                            let minutes = timer_total.as_secs() / 60; 
+                        if remaining == Duration::ZERO && !timer_logged {
+                            timer_running = false;
+                            timer_done = true;
+                            let minutes = timer_total.as_secs() / 60;
                             if minutes > 0 {
                                 let today = Local::now().format("%Y-%m-%d").to_string();
                                 *history.entry(today).or_insert(0) += minutes;
+                                if let Err(e) = _save_history(&history) {
+                                    eprintln!("Failed to save history: {}", e);
+                                }
                             }
-                            timer_logged = true; 
+                            timer_logged = true;
                         }
                     }
                     timer_display.clone()
@@ -521,7 +521,17 @@ fn main() -> io::Result<()> {
                         }
                         _ => {}
                     },
-                    KeyCode::Char('q') => break,
+                    KeyCode::Char('q') => {
+                        if stopwatch_running {
+                            let elapsed = stopwatch_start.elapsed();
+                            let minutes = (elapsed.as_secs() / 60) as u64;
+                            if minutes > 0 {
+                                let today = Local::now().format("%Y-%m-%d").to_string();
+                                *history.entry(today).or_insert(0) += minutes;
+                            }
+                        }
+                        break
+                    }
                     _ => {}
                 }
             }
@@ -529,8 +539,13 @@ fn main() -> io::Result<()> {
     }
 
     disable_raw_mode()?;
-    execute!(terminal.backend_mut(), LeaveAlternateScreen)?; 
+    execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
     terminal.show_cursor()?;
+
+    if let Err(e) = _save_history(&history) {
+        eprintln!("Failed to save history: {}", e);
+    }
+
     let _ = fs::remove_file(lock_path_buf);
     drop(lock_file);
     Ok(())
