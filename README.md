@@ -41,12 +41,12 @@ yay -S fokus
 git clone https://git.sr.ht/~fijarom/fokus
 cd fokus
 ```
-2. Build with Cargo and open it:
+1. Build with Cargo and open it:
 ```bash
 cargo build --release
 cd target/release
 ```
-3. (Optional) Install system-wide:
+1. (Optional) Install system-wide:
 ```bash
 sudo install -Dm755 fokus /usr/local/bin/fokus
 ```
