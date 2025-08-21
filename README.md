@@ -37,19 +37,19 @@ yay -S fokus
 ```
 #### Manual (Other Distros)
 1. Clone the repository and open it:
-```bash
-git clone https://git.sr.ht/~fijarom/fokus
-cd fokus
-```
+   ```bash
+   git clone https://git.sr.ht/~fijarom/fokus
+   cd fokus
+   ```
 2. Build with Cargo and open it:
-```bash
-cargo build --release
-cd target/release
-```
+   ```bash
+   cargo build --release
+   cd target/release
+   ```
 3. (Optional) Install system-wide:
-```bash
-sudo install -Dm755 fokus /usr/local/bin/fokus
-```
+   ```bash
+   sudo install -Dm755 fokus /usr/local/bin/fokus
+   ```
 
 ## Usage
 Run the program:
