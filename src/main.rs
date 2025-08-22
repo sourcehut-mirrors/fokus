@@ -497,6 +497,9 @@ fn main() -> io::Result<()> {
                                 if minutes > 0 {
                                     let today = Local::now().format("%Y-%m-%d").to_string();
                                     *history.entry(today).or_insert(0) += minutes;
+                                    if let Err(e) = _save_history(&history) {
+            eprintln!("Failed to save history: {}", e);
+        }
                                 }
                                 stopwatch_display = "00:00.00".to_string();
                             } else {
@@ -528,6 +531,9 @@ fn main() -> io::Result<()> {
                             if minutes > 0 {
                                 let today = Local::now().format("%Y-%m-%d").to_string();
                                 *history.entry(today).or_insert(0) += minutes;
+                                if let Err(e) = _save_history(&history) {
+            eprintln!("Failed to save history: {}", e);
+        }
                             }
                         }
                         break
