@@ -186,7 +186,7 @@ fn acquire_lock() -> io::Result<(fs::File, PathBuf)> {
                     if proc_path.exists() {
                         return Err(io::Error::new(
                                 io::ErrorKind::AlreadyExists,
-                                "Another instance is already running. There can only be one fokus instance at a time. Please kill the other instance before starting a new one.",
+                                "Please kill the other instance before starting a new one.",
                         ));
                     } else {
                         let _ = fs::remove_file(&path);
@@ -219,7 +219,7 @@ fn main() -> io::Result<()> {
     let (lock_file, lock_path_buf) = match acquire_lock() {
         Ok(t) => t,
         Err(e) => {
-            eprintln!("There is something wrong: {}", e);
+            eprintln!("fokus: {}", e);
             std::process::exit(1);
         }
     };
