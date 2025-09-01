@@ -73,6 +73,10 @@ Configure fokus via the config file located at `~/.config/fokus/config.toml`:
 # Default timer duration (in minutes)
 # Must be between 1 and 999
 default_timer_duration = 25
+
+# Default start page
+# 0 = Stopwatch, 1 = Timer, 2 = History
+default_start_page = 0
 ```
 
 ## LICENSE

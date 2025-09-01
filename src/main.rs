@@ -43,12 +43,14 @@ const CONFIG_TIMER_MAX: u64 = 999;
 #[derive(Serialize, Deserialize, Debug)]
 struct Config {
     default_timer_duration: u64,
+    default_start_page: usize,
 }
 
 impl Default for Config {
     fn default() -> Self {
         Config {
             default_timer_duration: 25,
+            default_start_page: 0,
         }
     }
 }
@@ -68,27 +70,34 @@ impl Config {
                 if path.exists() {
                     let s = fs::read_to_string(&path)?;
                     match toml::from_str::<Config>(&s) {
-                        Ok(cfg) => {
+                        Ok(mut cfg) => {
 
                             if cfg.default_timer_duration < CONFIG_TIMER_MIN || cfg.default_timer_duration > CONFIG_TIMER_MAX {
                                 let def = Config::default();
-                                let mut toml_s = toml::to_string_pretty(&def).unwrap();
-                                toml_s = format!(
+                                let toml_s = format!(
                                     "# fokus Configuration File\n\n\
                                  # Default timer duration (in minutes)\n\
-                                 # Must be between {} and {}\n{}",
-                                 CONFIG_TIMER_MIN, CONFIG_TIMER_MAX, toml_s
+                                 # Must be between {} and {}\n\
+                                 default_timer_duration = {}\n\n\
+                                 # Default start page\n
+                                 # 0 = Stopwatch, 1 = Timer, 2 = History\n\
+                                 default_start_page = {}",
+                                 CONFIG_TIMER_MIN, CONFIG_TIMER_MAX, def.default_timer_duration, def.default_start_page
                                 );
                                 fs::write(&path, toml_s)?;
                                 def
                             } else {
+                                cfg.default_start_page = match cfg.default_start_page {
+    0..=2 => cfg.default_start_page,
+    _ => 0,
+};
                                 cfg
                             }
                         }
                         Err(_) => {
                             let def = Config::default();
-                            let mut toml_s = toml::to_string_pretty(&def).unwrap();
-                            toml_s = format!("# fokus Configuration File\n\n# Default timer duration (in minutes)\n# Must be between {} and {}\n{}", CONFIG_TIMER_MIN, CONFIG_TIMER_MAX, toml_s);
+                    let toml_s = format!("# fokus Configuration File\n\n# Default timer duration (in minutes)\n# Must be between {} and {}\ndefault_timer_duration = {}\n\n# Default start page\n# 0 = Stopwatch, 1 = Timer, 2 = History\ndefault_start_page = {}", CONFIG_TIMER_MIN, CONFIG_TIMER_MAX, def.default_timer_duration, def.default_start_page);
+
                             fs::write(&path, toml_s)?;
                             def
                         }
@@ -96,8 +105,7 @@ impl Config {
                 } else {
 
                     let def = Config::default();
-                    let mut toml_s = toml::to_string_pretty(&def).unwrap();
-                    toml_s = format!("# fokus Configuration File\n\n# Default timer duration (in minutes)\n# Must be between {} and {}\n{}", CONFIG_TIMER_MIN, CONFIG_TIMER_MAX, toml_s);
+                    let toml_s = format!("# fokus Configuration File\n\n# Default timer duration (in minutes)\n# Must be between {} and {}\ndefault_timer_duration = {}\n\n# Default start page\n# 0 = Stopwatch, 1 = Timer, 2 = History\ndefault_start_page = {}", CONFIG_TIMER_MIN, CONFIG_TIMER_MAX, def.default_timer_duration, def.default_start_page);
                     fs::write(&path, toml_s)?;
                     def
                 }
@@ -235,7 +243,7 @@ fn main() -> io::Result<()> {
     let mut terminal = Terminal::new(backend)?;
 
     let header_pages = ["< Page 1 of 3 >", "< Page 2 of 3 >", "< Page 3 of 3 >"];
-    let mut header_page_index = 0;
+    let mut header_page_index = config.default_start_page;
 
     let mut stopwatch_start = Instant::now();
     let mut stopwatch_running = false;
@@ -498,8 +506,8 @@ fn main() -> io::Result<()> {
                                     let today = Local::now().format("%Y-%m-%d").to_string();
                                     *history.entry(today).or_insert(0) += minutes;
                                     if let Err(e) = _save_history(&history) {
-            eprintln!("Failed to save history: {}", e);
-        }
+                                        eprintln!("Failed to save history: {}", e);
+                                    }
                                 }
                                 stopwatch_display = "00:00.00".to_string();
                             } else {
@@ -532,8 +540,8 @@ fn main() -> io::Result<()> {
                                 let today = Local::now().format("%Y-%m-%d").to_string();
                                 *history.entry(today).or_insert(0) += minutes;
                                 if let Err(e) = _save_history(&history) {
-            eprintln!("Failed to save history: {}", e);
-        }
+                                    eprintln!("Failed to save history: {}", e);
+                                }
                             }
                         }
                         break
