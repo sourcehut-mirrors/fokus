@@ -1,7 +1,7 @@
 # fokus
 A minimalist terminal‐based focus timer and stopwatch with daily logging, built in Rust
 
-[![Version](https://img.shields.io/badge/Version-2.1.0-3F4551?logo=SemVer&logoColor=white)](https://git.sr.ht/~fijarom/fokus/log) [![License](https://img.shields.io/badge/License-GPL--3.0-BD0000?logo=GNU&logoColor=white)](./COPYING) [![Language](https://img.shields.io/badge/Language-Rust-000000?logo=Rust&logoColor=white)](https://www.rust-lang.org/) [![Donate](https://img.shields.io/badge/Donate_to-Project-EA4AAA?logo=GithubSponsors&logoColor=white)](https://git.sr.ht/~fijarom/dotfiles/tree/master/item/DONATE.md) 
+[![Version](https://img.shields.io/badge/License-GPL--3.0--or--later-BD0000?logo=SemVer&logoColor=white)](https://git.sr.ht/~fijarom/fokus/log) [![License](https://img.shields.io/badge/License-GPL--3.0-BD0000?logo=GNU&logoColor=white)](./COPYING) [![Language](https://img.shields.io/badge/Language-Rust-000000?logo=Rust&logoColor=white)](https://www.rust-lang.org/) [![Donate](https://img.shields.io/badge/Donate_to-Project-EA4AAA?logo=GithubSponsors&logoColor=white)](https://git.sr.ht/~fijarom/dotfiles/tree/master/item/DONATE.md) 
 
 ## Features
 - Stopwatch to track elapsed time while focusing.
