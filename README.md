@@ -80,5 +80,5 @@ default_start_page = 0
 ```
 
 ## LICENSE
-This project is licensed under the terms of the GPL-3.0 license. See the [COPYING](./COPYING) file for details.
+This project is licensed under the terms of the GPL-3.0-or-later license. See the [COPYING](./COPYING) file for details.
 
