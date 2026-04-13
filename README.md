@@ -38,17 +38,17 @@ A minimalist terminal‐based focus timer and stopwatch with daily logging, buil
     yay -S fokus
     ```
 #### Manual (Other Distros)
-    1. Clone the repository and open it:
+1. Clone the repository and open it:
     ```bash
     git clone https://git.sr.ht/~fijarom/fokus
     cd fokus
     ```
-    2. Build with Cargo and open it:
+2. Build with Cargo and open it:
     ```bash
     cargo build --release
     cd target/release
     ```
-    3. (Optional) Install system-wide:
+3. (Optional) Install system-wide:
     ```bash
     sudo install -Dm755 fokus /usr/local/bin/fokus && \
     sudo install -Dm644 ../../fokus.desktop /usr/share/applications/fokus.desktop && \
