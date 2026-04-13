@@ -21,64 +21,66 @@ A minimalist terminal‐based focus timer and stopwatch with daily logging, buil
 ## Prerequisites
 - Rust (>= 1.89)
 #### Debian / Ubuntu
-```bash
-sudo apt update
-sudo apt install rustc cargo
-```
+    ```bash
+    sudo apt update
+    sudo apt install rustc cargo
+    ```
 #### Fedora
-```bash
-sudo dnf install rust cargo
-```
+    ```bash
+    sudo dnf install rust cargo
+    ```
 
 ## Installation
 #### Arch ([AUR](https://aur.archlinux.org/packages/fokus))
-```bash
-paru -S fokus
+    ```bash
+    paru -S fokus
 # or
-yay -S fokus
-```
+    yay -S fokus
+    ```
 #### Manual (Other Distros)
-1. Clone the repository and open it:
-   ```bash
-   git clone https://git.sr.ht/~fijarom/fokus
-   cd fokus
-   ```
-2. Build with Cargo and open it:
-   ```bash
-   cargo build --release
-   cd target/release
-   ```
-3. (Optional) Install system-wide:
-   ```bash
-   sudo install -Dm755 fokus /usr/local/bin/fokus
-   ```
+    1. Clone the repository and open it:
+    ```bash
+    git clone https://git.sr.ht/~fijarom/fokus
+    cd fokus
+    ```
+    2. Build with Cargo and open it:
+    ```bash
+    cargo build --release
+    cd target/release
+    ```
+    3. (Optional) Install system-wide:
+    ```bash
+    sudo install -Dm755 fokus /usr/local/bin/fokus && \
+    sudo install -Dm644 ../../fokus.desktop /usr/share/applications/fokus.desktop && \
+    sudo install -Dm644 ../../assets/fokus.png /usr/share/icons/hicolor/256x256/apps/fokus.png
+    ```
 
 ## Usage
-Run the program:
-```bash
-./fokus
+        Run the program:
+        ```bash
+        ./fokus
 # or, if installed system-wide:
-fokus
-```
+        fokus
+        ```
 ### Controls
-- `[space]` : Start/Reset stopwatch or timer
-- `[h/←]`/`[l/→]` : Switch pages
-- `[j/↓]`/`[k/↑]` : Adjust timer minutes or scroll logs
-- `[q]` : Quit
+        - `[space]` : Start/Reset stopwatch or timer
+        - `[h/←]`/`[l/→]` : Switch pages
+        - `[j/↓]`/`[k/↑]` : Adjust timer minutes or scroll logs
+        - `[q]` : Quit
 ### Configuration
-Configure fokus via the config file located at `~/.config/fokus/config.toml`:
-```toml
+        Configure fokus via the config file located at `~/.config/fokus/config.toml`:
+        ```toml
 # fokus Configuration File
 
 # Default timer duration (in minutes)
 # Must be between 1 and 999
-default_timer_duration = 25
+        default_timer_duration = 25
 
 # Default start page
 # 0 = Stopwatch, 1 = Timer, 2 = History
-default_start_page = 0
-```
+        default_start_page = 0
+        ```
 
 ## LICENSE
-This project is licensed under the terms of the GPL-3.0-or-later license. See the [COPYING](./COPYING) file for details.
+        This project is licensed under the terms of the GPL-3.0-or-later license. See the [COPYING](./COPYING) file for details.
 
