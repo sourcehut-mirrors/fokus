@@ -52,7 +52,7 @@ yay -S fokus
    ```bash
    sudo install -Dm755 fokus /usr/local/bin/fokus
    sudo install -Dm644 ../../fokus.desktop /usr/share/applications/fokus.desktop
-   sudo install -Dm644 ../../assets/fokus.png /usr/share/icons/hicolor/256x256/apps/fokus.png
+   sudo install -Dm644 ../../assets/fi-fokus.png /usr/share/icons/hicolor/256x256/apps/fi-fokus.png
    ```
 
 ## Usage
