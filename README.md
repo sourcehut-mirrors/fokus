@@ -50,8 +50,8 @@ yay -S fokus
    ```
 3. (Optional) Install system-wide:
    ```bash
-   sudo install -Dm755 fokus /usr/local/bin/fokus && \
-   sudo install -Dm644 ../../fokus.desktop /usr/share/applications/fokus.desktop && \
+   sudo install -Dm755 fokus /usr/local/bin/fokus
+   sudo install -Dm644 ../../fokus.desktop /usr/share/applications/fokus.desktop
    sudo install -Dm644 ../../assets/fokus.png /usr/share/icons/hicolor/256x256/apps/fokus.png
    ```
 
